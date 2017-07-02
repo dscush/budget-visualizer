@@ -14,7 +14,7 @@
         <div class="col-xs-12 col-md-8 col-md-pull-4 col-lg-7 col-lg-pull-5">
             <div class="row">
                 <div class="col-xs-6 col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group" id="starting-total-budget-fg">
                         <label class="control-label" for="starting-total-budget">Starting Total Budget</label>
                         <div class="input-group">
                             <span class="input-group-addon">$</span>
@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group" id="total-budget-growth-fg">
                         <label class="control-label" for="total-budget-growth">Total Budget Growth</label>
                         <div class="input-group">
                             <input type="text" id="total-budget-growth" class="form-control" value="0.035">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group" id="starting-school-budget-fg">
                         <label class="control-label" for="starting-school-budget">Starting School Budget</label>
                         <div class="input-group">
                             <span class="input-group-addon">$</span>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group" id="school-budget-growth-fg">
                         <label class="control-label" for="school-budget-growth">School Budget Growth</label>
                         <div class="input-group">
                             <input type="text" id="school-budget-growth" class="form-control" value="0.0525">
@@ -50,13 +50,13 @@
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group" id="starting-year-fg">
                         <label class="control-label" for="starting-year">Starting Year</label>
                             <input type="text" id="starting-year" class="form-control" value="2017">
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group" id="total-years-fg">
                         <label class="control-label" for="total-years">Number of Years to Show</label>
                             <input type="text" id="total-years" class="form-control" value="40">
                     </div>
@@ -74,13 +74,69 @@
         return false;
     });
     function drawGraph(){
-        var total_growth = 1 + parseFloat($("#total-budget-growth").val())
-        var school_growth = 1 + parseFloat($("#school-budget-growth").val())
-        var total_budget = [parseFloat($("#starting-total-budget").val())]
-        var school_budget = [parseFloat($("#starting-school-budget").val())]
-        var remaining_budget = [total_budget[0] - school_budget[0]]
-        var labels = [parseInt($("#starting-year").val())]
-        for (let i=1; i < parseInt($("#total-years").val()); i++) {
+        $("#total-budget-growth-fg").removeClass("has-error");
+        $("#school-budget-growth-fg").removeClass("has-error");
+        $("#starting-total-budget-fg").removeClass("has-error");
+        $("#starting-school-budget-fg").removeClass("has-error");
+        $("#total-years-fg").removeClass("has-error");
+        $("#starting-year-fg").removeClass("has-error");
+        
+        var parametersform = $('#parametersForm');
+        var hasErrors = false;
+        
+        var totalGrowthRate = $("#total-budget-growth").val();
+        var schoolGrowthRate = $("#school-budget-growth").val();
+        var startingTotalBudget = $("#starting-total-budget").val();
+        var startingSchoolBudget = $("#starting-school-budget").val();
+        var startingYear = $("#starting-year").val();
+        var totalYears = $("#total-years").val();
+        
+        if ($.isNumeric(totalGrowthRate)) {
+            totalGrowthRate = parseFloat(totalGrowthRate);
+        } else {
+            hasErrors = true;
+            $("#total-budget-growth-fg").addClass("has-error");
+        }
+        if ($.isNumeric(schoolGrowthRate)) {
+            schoolGrowthRate = parseFloat(schoolGrowthRate);
+        } else {
+            hasErrors = true;
+            $("#school-budget-growth-fg").addClass("has-error");
+        }
+        if ($.isNumeric(startingTotalBudget)) {
+            startingTotalBudget = parseFloat(startingTotalBudget);
+        } else {
+            hasErrors = true;
+            $("#starting-total-budget-fg").addClass("has-error");
+        }
+        if ($.isNumeric(startingSchoolBudget)) {
+            startingSchoolBudget = parseFloat(startingSchoolBudget);
+        } else {
+            hasErrors = true;
+            $("#starting-school-budget-fg").addClass("has-error");
+        }
+        if (Math.floor(startingYear) == startingYear && $.isNumeric(startingYear)) {
+            startingYear = parseInt(startingYear);
+        } else {
+            hasErrors = true;
+            $("#starting-year-fg").addClass("has-error");
+        }
+        if (Math.floor(totalYears) == totalYears && $.isNumeric(totalYears)) {
+            totalYears = parseInt(totalYears);
+        } else {
+            hasErrors = true;
+            $("#total-years-fg").addClass("has-error");
+        }
+        if (hasErrors) {
+            return;
+        }
+        var total_growth = 1 + totalGrowthRate;
+        var school_growth = 1 + schoolGrowthRate;
+        var total_budget = [startingTotalBudget];
+        var school_budget = [startingSchoolBudget];
+        var remaining_budget = [total_budget[0] - school_budget[0]];
+        var labels = [startingYear];
+        for (let i=1; i < totalYears; i++) {
             total_budget[i] = total_budget[i-1] * total_growth
             school_budget[i] = school_budget[i-1] * school_growth
             remaining_budget[i] = total_budget[i] - school_budget[i]
