@@ -137,10 +137,10 @@
         var remaining_budget = [total_budget[0] - school_budget[0]];
         var labels = [startingYear];
         for (let i=1; i < totalYears; i++) {
-            total_budget[i] = total_budget[i-1] * total_growth
-            school_budget[i] = school_budget[i-1] * school_growth
-            remaining_budget[i] = total_budget[i] - school_budget[i]
-            labels[i] = labels[i-1] + 1
+            total_budget[i] = total_budget[i-1] * total_growth;
+            school_budget[i] = school_budget[i-1] * school_growth;
+            remaining_budget[i] = total_budget[i] - school_budget[i];
+            labels[i] = labels[i-1] + 1;
         }
         var ctx = document.getElementById("myChart").getContext('2d');
         var myChart = new Chart(ctx, {
