@@ -1,0 +1,129 @@
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+    <form id="parametersForm">
+        <div class="col-xs-12 col-md-4 col-md-push-8 col-lg-5 col-lg-push-7">
+            <p>This is a tool for visualizing the town's total budget and school budget, and how they relate as they change over time.  Use the input fields to adjust the graph.</p>
+            <button type="submit" class="btn btn-primary">Draw Graph</button>
+        </div>
+        <div class="col-xs-12 col-md-8 col-md-pull-4 col-lg-7 col-lg-pull-5">
+            <div class="row">
+                <div class="col-xs-6 col-sm-4">
+                        <div class="form-group">
+                        <label for="starting-total-budget">Starting Total Budget</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" id="starting-total-budget" class="form-control" value="55532000">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                        <div class="form-group">
+                        <label for="total-budget-growth">Total Budget Growth</label>
+                        <div class="input-group">
+                            <input type="text" id="total-budget-growth" class="form-control" value="0.035">
+                            <span class="input-group-addon">%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                        <div class="form-group">
+                        <label for="starting-school-budget">Starting School Budget</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" id="starting-school-budget" class="form-control" value="31880000">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                        <div class="form-group">
+                        <label for="school-budget-growth">School Budget Growth</label>
+                        <div class="input-group">
+                            <input type="text" id="school-budget-growth" class="form-control" value="0.0525">
+                            <span class="input-group-addon">%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                        <div class="starting-year">
+                        <label for="starting-year">Starting Year</label>
+                            <input type="text" id="starting-year" class="form-control" value="2017">
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                        <div class="form-group">
+                        <label for="total-years">Number of Years to Show</label>
+                            <input type="text" id="total-years" class="form-control" value="40">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+<canvas id="myChart"></canvas>
+<script>
+    $('#parametersForm').submit(function () {
+        drawGraph();
+        return false;
+    });
+    function drawGraph(){
+        var total_growth = 1 + parseFloat($("#total-budget-growth").val())
+        var school_growth = 1 + parseFloat($("#school-budget-growth").val())
+        var total_budget = [parseFloat($("#starting-total-budget").val())]
+        var school_budget = [parseFloat($("#starting-school-budget").val())]
+        var remaining_budget = [total_budget[0] - school_budget[0]]
+        var labels = [parseInt($("#starting-year").val())]
+        for (let i=1; i < parseInt($("#total-years").val()); i++) {
+            total_budget[i] = total_budget[i-1] * total_growth
+            school_budget[i] = school_budget[i-1] * school_growth
+            remaining_budget[i] = total_budget[i] - school_budget[i]
+            labels[i] = labels[i-1] + 1
+        }
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Total Budget',
+                    data: total_budget,
+                    fill: false,
+                    backgroundColor: 'rgba(255,99,132,1)',
+                    borderColor: 'rgba(255,99,132,1)'
+                },{
+                    label: 'School Budget',
+                    data: school_budget,
+                    fill: false,
+                    backgroundColor: 'rgba(54, 162, 235, 1)',
+                    borderColor: 'rgba(54, 162, 235, 1)'
+                },{
+                    label: 'Non-School Budget',
+                    data: remaining_budget,
+                    fill: false,
+                    backgroundColor: 'rgba(255, 206, 86, 1)',
+                    borderColor: [
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ]
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>
