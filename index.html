@@ -8,7 +8,6 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-    <form id="parametersForm">
         <div class="col-xs-12 col-lg-2 col-lg-push-10">
             <p>This is a tool for visualizing the town's total budget and school budget, and how they relate as they change over time.  Use the input fields to adjust the graph.</p>
             <button type="submit" class="btn btn-primary">Draw Graph</button>
@@ -69,7 +68,6 @@
             <div class="alert alert-danger" id="budget-cuts-start"></div>
             <div class="alert alert-danger" id="non-school-budget-depletes"></div>
         </div>
-    </form>
         </div>
     <div class="row">
         <div class="col-xs-12">
@@ -81,9 +79,8 @@
     $(document).ready(function() {
         drawGraph();
     });
-    $('#parametersForm').submit(function () {
+    $('input').change(function () {
         drawGraph();
-        return false;
     });
     function drawGraph(){
         $("#total-budget-growth-fg").removeClass("has-error");
@@ -94,7 +91,6 @@
         $("#starting-year-fg").removeClass("has-error");
         $("#budget-alerts").html("");
         
-        var parametersform = $('#parametersForm');
         var hasErrors = false;
         
         var totalGrowthRate = $("#total-budget-growth").val();
