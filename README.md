@@ -1,0 +1,1 @@
+This is a tool for visualizing the town's total budget and school budget, and how they relate as they change over time.  The starting budget amounts, rates of budget growth, starting year, and total number of years can all be adjusted using the form fields.  I created this for Grafton, MA, to demonstrate that our school budget is outpacing our total budget.
