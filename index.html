@@ -66,6 +66,9 @@
     </form>
 <canvas id="myChart"></canvas>
 <script>
+    $(document).ready(function() {
+        drawGraph();
+    });
     $('#parametersForm').submit(function () {
         drawGraph();
         return false;
