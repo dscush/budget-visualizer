@@ -6,6 +6,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div class="container-fluid">
+        <div class="row">
     <form id="parametersForm">
         <div class="col-xs-12 col-md-4 col-md-push-8 col-lg-5 col-lg-push-7">
             <p>This is a tool for visualizing the town's total budget and school budget, and how they relate as they change over time.  Use the input fields to adjust the graph.</p>
@@ -64,7 +66,13 @@
             </div>
         </div>
     </form>
-<canvas id="myChart"></canvas>
+        </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    </div>
 <script>
     $(document).ready(function() {
         drawGraph();
