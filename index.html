@@ -23,7 +23,7 @@
                             <div class="form-group" id="total-budget-growth-fg">
                                 <label class="control-label" for="total-budget-growth">Total Budget Growth</label>
                                 <div class="input-group">
-                                    <input type="text" id="total-budget-growth" class="form-control" value="0.035">
+                                    <input type="text" id="total-budget-growth" class="form-control" value="3.5">
                                     <span class="input-group-addon">%</span>
                                 </div>
                             </div>
@@ -47,7 +47,7 @@
                             <div class="form-group" id="school-budget-growth-fg">
                                 <label class="control-label" for="school-budget-growth">School Budget Growth</label>
                                 <div class="input-group">
-                                    <input type="text" id="school-budget-growth" class="form-control" value="0.0525">
+                                    <input type="text" id="school-budget-growth" class="form-control" value="5.25">
                                     <span class="input-group-addon">%</span>
                                 </div>
                             </div>
@@ -97,13 +97,13 @@
                 var totalYears = $("#total-years").val();
 
                 if ($.isNumeric(totalGrowthRate)) {
-                    totalGrowthRate = parseFloat(totalGrowthRate);
+                    totalGrowthRate = parseFloat(totalGrowthRate) / 100;
                 } else {
                     hasErrors = true;
                     $("#total-budget-growth-fg").addClass("has-error");
                 }
                 if ($.isNumeric(schoolGrowthRate)) {
-                    schoolGrowthRate = parseFloat(schoolGrowthRate);
+                    schoolGrowthRate = parseFloat(schoolGrowthRate) / 100;
                 } else {
                     hasErrors = true;
                     $("#school-budget-growth-fg").addClass("has-error");
