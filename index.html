@@ -2,6 +2,7 @@
       xmlns:fb="http://ogp.me/ns/fb#">
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.5/chartjs-plugin-annotation.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -80,6 +81,28 @@
             $('input').change(function () {
                 drawGraph();
             });
+            function Annotation(id, year, color, msg) {
+                if (typeof Annotation.counter == 'undefined') {
+                    Annotation.counter = 1;
+                } else {
+                    Annotation.counter++;
+                }
+                this.drawTime = "afterDraw";
+                this.id = id;
+                this.type = "line";
+                this.mode = "vertical";
+                this.scaleID = "x-axis-0";
+                this.value = year;
+                this.borderColor = color;
+                this.borderWidth = 3;
+                this.label = {
+                    position: "top",
+                    yAdjust: Annotation.counter * 20,
+                    backgroundColor: color,
+                    content: year + ": " + msg,
+                    enabled: true
+                };
+            }
             function drawGraph(){
                 $("#total-budget-growth-fg").removeClass("has-error");
                 $("#school-budget-growth-fg").removeClass("has-error");
@@ -145,6 +168,7 @@
                 var labels = [startingYear];
                 var beganBudgetCuts = false;
                 var depletedNonSchoolBudget = false;
+                var annotations = []
                 for (let i=1; i < totalYears; i++) {
                     total_budget[i] = total_budget[i-1] * total_growth;
                     school_budget[i] = school_budget[i-1] * school_growth;
@@ -152,11 +176,11 @@
                     labels[i] = labels[i-1] + 1;
                     if (!beganBudgetCuts && remaining_budget[i] < remaining_budget[i-1]) {
                         beganBudgetCuts = true;
-                        $("#budget-alerts").append('<div class="alert alert-danger" role="alert" id="budget-cuts-start"><b>' + labels[i] + '</b>: Budget cuts necessary.</div>');
+                        annotations.push(new Annotation("budget_cuts", labels[i], 'rgba(255, 127, 0, 0.6)', "Budget cuts necessary"));
                     }
                     if (!depletedNonSchoolBudget && remaining_budget[i] < 0) {
                         depletedNonSchoolBudget = true;
-                        $("#budget-alerts").append('<div class="alert alert-danger" role="alert" id="budget-cuts-start"><b>' + labels[i] + '</b>: Non-school budget depleted.</div>');
+                        annotations.push(new Annotation("budget_depleted", labels[i], 'rgba(255, 0, 0, 0.5)', "Non-school budget depleted"));
                     }
                 }
                 var ctx = $("#myChart");
@@ -185,6 +209,9 @@
                         }]
                     },
                     options: {
+                        annotation: {
+                          annotations: annotations
+                        },
                         scales: {
                             yAxes: [{
                                 ticks: {
