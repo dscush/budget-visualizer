@@ -11,7 +11,7 @@
     <body>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xs-12 col-md-9">
+                <div class="col-xs-12">
                     <div class="inputs">
                         <div class="input-pairs">
                             <div class="input-pair">
@@ -73,11 +73,35 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="input-pairs">
+                            <div class="input-pair">
+                                <div class="input">
+                                    <div class="form-group" id="new-growth-fg">
+                                        <label class="control-label" for="new-growth">New Property Growth (tax only)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">$</span>
+                                            <input type="text" id="new-growth" class="form-control">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" id="new-growth-btn" type="button">Build it!</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input">
+                                    <div class="form-group" id="override-fg">
+                                        <label class="control-label" for="override-growth">Prop &frac12; Override</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">$</span>
+                                            <input type="text" id="override" class="form-control">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" id="override-btn" type="button">Override!</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-md-3" id="budget-alerts">
-                    <div class="alert alert-danger" id="budget-cuts-start"></div>
-                    <div class="alert alert-danger" id="non-school-budget-depletes"></div>
                 </div>
             </div>
             <div class="row">
