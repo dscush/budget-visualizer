@@ -10,6 +10,11 @@
     "less": "^2.7.2"
   },
   "scripts": {
+    "build-css-backup": "catw -c 'lessc -' 'src/styles/*.less' > dist/static/bundle.css",
+    "build-css": "lessc src/styles/main.less dist/static/bundle.css",
+    "build-js": "browserify src/scripts/*.js > dist/static/bundle.js",
+    "build-html": "cp src/index.html dist/",
+    "build": "npm run build-css && npm run build-js && npm run build-html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

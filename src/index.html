@@ -4,18 +4,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.5/chartjs-plugin-annotation.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="static/bundle.css" rel="stylesheet">
     <meta property="og:image" content="http://dscush.github.io/budget-visualizer/budget_visualizer.jpg" />
     </head>
     <body>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 col-md-9">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-4">
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-12">
+                    <div class="inputs">
+                        <div class="input-pairs">
+                            <div class="input-pair">
+                                <div class="input">
                                     <div class="form-group" id="starting-total-budget-fg">
                                         <label class="control-label" for="starting-total-budget">Starting Total Budget</label>
                                         <div class="input-group">
@@ -24,7 +24,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-6 col-sm-12">
+                                <div class="input">
                                     <div class="form-group" id="starting-school-budget-fg">
                                         <label class="control-label" for="starting-school-budget">Starting School Budget</label>
                                         <div class="input-group">
@@ -35,9 +35,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-4">
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-12">
+                        <div class="input-pairs">
+                            <div class="input-pair">
+                                <div class="input">
                                     <div class="form-group" id="total-budget-growth-fg">
                                         <label class="control-label" for="total-budget-growth">Total Budget Growth</label>
                                         <div class="input-group">
@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-6 col-sm-12">
+                                <div class="input">
                                     <div class="form-group" id="school-budget-growth-fg">
                                         <label class="control-label" for="school-budget-growth">School Budget Growth</label>
                                         <div class="input-group">
@@ -57,15 +57,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-4">
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-12">
+                        <div class="input-pairs">
+                            <div class="input-pair">
+                                <div class="input">
                                     <div class="form-group" id="starting-year-fg">
                                         <label class="control-label" for="starting-year">Starting Year</label>
                                         <input type="text" id="starting-year" class="form-control" value="2017">
                                     </div>
                                 </div>
-                                <div class="col-xs-6 col-sm-12">
+                                <div class="input">
                                     <div class="form-group" id="total-years-fg">
                                         <label class="control-label" for="total-years">Number of Years</label>
                                         <input type="text" id="total-years" class="form-control" value="40">
@@ -87,6 +87,6 @@
             </div>
         </div>
         <img style="display: none;" src="https://dscush.github.io/budget-visualizer/budget_visualizer.jpg">
-        <script src="main.js"></script>
+        <script src="static/bundle.js"></script>
     </body>
 </html>
