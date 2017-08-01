@@ -1,0 +1,25 @@
+{
+  "name": "budget-visualizer",
+  "version": "0.1.0",
+  "description": "This is a tool for visualizing the town's total budget and school budget, and how they relate as they change over time.",
+  "main": "main.js",
+  "dependencies": {},
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "browserify": "^14.4.0",
+    "less": "^2.7.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dscush/budget-visualizer.git"
+  },
+  "author": "Dan Cusher",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dscush/budget-visualizer/issues"
+  },
+  "homepage": "https://github.com/dscush/budget-visualizer#readme"
+}
