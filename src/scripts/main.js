@@ -140,13 +140,8 @@ function drawGraph(){
                 callbacks: {
                     label: function(tooltipItem, data) {
                         var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-                        value = value.toString();
-                        value = value.split('.');
-                        value[0] = value[0].split(/(?=(?:...)*$)/);
-                        value[0] = value[0].join(',');
-                        value[1] = value[1].substr(0,2);
-                        value = data.datasets[tooltipItem.datasetIndex].label + ': $' + value.join('.')
-                        value = value.replace('$-', '-$');
+                        value = value.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+                        value = data.datasets[tooltipItem.datasetIndex].label + ": " + value;
                         return value;
                     }
                 }
@@ -156,11 +151,7 @@ function drawGraph(){
                     ticks: {
                         beginAtZero:true,
                         userCallback: function(value, index, values) {
-                            value = value.toString();
-                            value = value.split(/(?=(?:...)*$)/);
-                            value = '$' + value.join(',');
-                            value = value.replace('$-', '-$');
-                            return value;
+                            return value.toLocaleString('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0});
                         }
                     }
                 }]
