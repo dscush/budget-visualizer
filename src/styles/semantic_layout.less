@@ -5,22 +5,26 @@
   }
   .description {
     .make-xs-column(12);
-    .make-md-column(6);
+    .make-md-column(9);
+    .make-md-column-push(3);
   }
   .instructions {
     .make-xs-column(12);
-    .make-md-column(6);
+    .make-md-column(3);
+    .make-md-column-pull(9);
   }
 }
 .main-content {
   .make-row();
   .side-bar {
     .make-xs-column(12);
+    .make-md-column(3);
     .controls {
       .make-row();
       .input-pairs {
         .make-xs-column(12);
         .make-sm-column(4);
+        .make-md-column(12);
         .input-pair {
           .make-row();
           .input {
@@ -30,6 +34,10 @@
         }
       }
     }
+  }
+  .chart {
+    .make-xs-column(12);
+    .make-md-column(9);
   }
 }
 
