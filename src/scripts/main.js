@@ -134,12 +134,34 @@ function drawGraph(){
         },
         options: {
             annotation: {
-              annotations: annotations
+                annotations: annotations
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        value = value.toString();
+                        value = value.split('.');
+                        value[0] = value[0].split(/(?=(?:...)*$)/);
+                        value[0] = value[0].join(',');
+                        value[1] = value[1].substr(0,2);
+                        value = data.datasets[tooltipItem.datasetIndex].label + ': $' + value.join('.')
+                        value = value.replace('$-', '-$');
+                        return value;
+                    }
+                }
             },
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero:true
+                        beginAtZero:true,
+                        userCallback: function(value, index, values) {
+                            value = value.toString();
+                            value = value.split(/(?=(?:...)*$)/);
+                            value = '$' + value.join(',');
+                            value = value.replace('$-', '-$');
+                            return value;
+                        }
                     }
                 }]
             }
