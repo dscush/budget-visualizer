@@ -2,19 +2,24 @@
   "name": "budget-visualizer",
   "version": "0.1.0",
   "description": "This is a tool for visualizing the town's total budget and school budget, and how they relate as they change over time.",
-  "main": "main.js",
-  "dependencies": {},
-  "devDependencies": {
+  "main": "index.js",
+  "engines": {
+    "node": "^8.2.1"
+  },
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.15.3",
     "bootstrap": "^3.3.7",
     "browserify": "^14.4.0",
     "less": "^2.7.2"
   },
+  "devDependencies": {
+  },
   "scripts": {
-    "build-css-backup": "catw -c 'lessc -' 'src/styles/*.less' > dist/static/bundle.css",
     "build-css": "lessc src/styles/main.less dist/static/bundle.css",
     "build-js": "browserify src/scripts/*.js > dist/static/bundle.js",
-    "build-html": "cp src/index.html dist/",
-    "build": "npm run build-css && npm run build-js && npm run build-html",
+    "build": "npm run build-css && npm run build-js",
+    "heroku-postbuild": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

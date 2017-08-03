@@ -1,0 +1,5 @@
+{
+  "name": "budget-visualizer",
+  "description": "This is a tool for visualizing the town's total budget and school budget, and how they relate as they change over time.",
+  "repository": "https://github.com/dscush/budget-visualizer",
+}
